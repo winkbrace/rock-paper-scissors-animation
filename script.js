@@ -10,6 +10,7 @@ const rules = {
     'yellow': 'orange',
 };
 const noiseFactor = 20; // determines the size of the Perlin noise.
+const simulationSpeed = 10; // frames per second
 let simulationSteps = 300; // After 300 steps we almost always have a stable situation.
 
 // Stable values
@@ -116,4 +117,4 @@ const intervalID = setInterval(function() {
     if (--simulationSteps <= 0) {
         clearInterval(intervalID);
     }
-}, 100);
+}, (1000 / simulationSpeed));
