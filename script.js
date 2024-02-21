@@ -1,17 +1,22 @@
 noise.seed(Math.random());
 
-const canvasWidth = 800;
-const canvasHeight = 600;
+// Adjustable values
 const cellSize = 10;
-const gridWidth = canvasWidth / cellSize;
-const gridHeight = canvasHeight / cellSize;
 const colors = ['red', 'orange', 'yellow'];
 const rules = {
+    // orange beats red, etc..
     'orange': 'red',
     'red': 'yellow',
     'yellow': 'orange',
 };
-const noiseFactor = 20;
+const noiseFactor = 20; // determines the size of the Perlin noise.
+let simulationSteps = 300; // After 300 steps we almost always have a stable situation.
+
+// Stable values
+const canvasWidth = 800;
+const canvasHeight = 600;
+const gridWidth = canvasWidth / cellSize;
+const gridHeight = canvasHeight / cellSize;
 
 // Create the grid
 let grid = [];
@@ -103,14 +108,12 @@ let colCenter = Math.floor(grid[0].length / 2);
 grid[rowCenter][colCenter].battles = true;
 draw();
 
-// run the simulation for i times.
-let i = 300;
+// run the simulation for count times.
 const intervalID = setInterval(function() {
     grid = next();
     draw();
 
-    console.log(i);
-    if (--i <= 0) {
+    if (--simulationSteps <= 0) {
         clearInterval(intervalID);
     }
 }, 100);
